@@ -7,7 +7,10 @@ void splitBlock(t_block *block, size_t size)
     newBlock = BLOCK_TO_DATA(block) + size;
     newBlock->isFree = 1;
     newBlock->next = block->next;
+    if(newBlock->next)
+        newBlock->next->prev = newBlock;
     newBlock->size = block->size - size - sizeof(t_block);
+    newBlock->prev = block;
     block->isFree = 0;
     block->next = newBlock;
     block->size = size;
@@ -26,6 +29,7 @@ void createNewBlock(size_t size, t_heapHeader *newHeap, t_group group, size_t to
         secondBlock->isFree = 1;
         secondBlock->next = NULL;
         secondBlock->size = totalHeapSize - (sizeof(t_block) * 2) - sizeof(t_heapHeader);
+        secondBlock->prev = firstBlock;
         firstBlock->next = secondBlock;
     }
     else

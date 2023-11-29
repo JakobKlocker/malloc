@@ -11,6 +11,7 @@
 #define HEAP_TO_BLOCK(heap) ((void*) heap + sizeof(t_heapHeader))
 // #define BLOCK_TO_HEAP(block) ((void*) heap - sizeof(t_block))
 #define BLOCK_TO_DATA(block) ((void*) block + sizeof(t_block))
+#define DATA_TO_BLOCK(data) ((void*) data - sizeof(t_block))
 
 typedef enum group{
     TINY,
@@ -20,6 +21,7 @@ typedef enum group{
 
 typedef struct s_block{
     struct s_block *next;
+    struct s_block *prev;
     int isFree;
     size_t size;
 } t_block;
