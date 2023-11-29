@@ -1,6 +1,6 @@
 #include "./malloc.h"
 
-void *createNewHeapHeader(t_heapHeader *newHeap, t_group group, size_t totalHeapSize)
+void createNewHeapHeader(t_heapHeader *newHeap, t_group group, size_t totalHeapSize)
 {
     t_heapHeader *lastHeader = getLastHeader(g_heapHead);
     newHeap->next = NULL;

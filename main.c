@@ -6,6 +6,10 @@ int main()
 {
     void *allocatedMemory1 = malloc(15);
     malloc(15);
+    malloc(15);
+    malloc(15);
+    malloc(15);
+    malloc(155);
     malloc(1555);
     malloc(155555);
     show_alloc_mem();

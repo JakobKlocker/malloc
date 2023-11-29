@@ -2,19 +2,19 @@
 
 int getGroupBySize(size_t size)
 {
-    if (size <= TINY_BLOCK_SIZE)
+    if (size <= (size_t)TINY_BLOCK_SIZE)
         return TINY;
-    else if (size <= MIDDLE_BLOCK_SIZE)
+    else if (size <= (size_t)MIDDLE_BLOCK_SIZE)
         return MIDDLE;
     return LARGE;
 }
 
 int getNewHeapSize(size_t size)
 {
-    if (size <= TINY_BLOCK_SIZE)
-        return TINY_HEAP_SIZE;
-    else if (size <= MIDDLE_BLOCK_SIZE)
-        return MIDDLE_HEAP_SIZE;
+    if (size <= (size_t)TINY_BLOCK_SIZE)
+        return (size_t)TINY_HEAP_SIZE;
+    else if (size <= (size_t)MIDDLE_BLOCK_SIZE)
+        return (size_t)MIDDLE_HEAP_SIZE;
     return size + sizeof(t_heapHeader) + sizeof(t_block);
 }
 
@@ -30,9 +30,9 @@ void *createNewHeap(size_t size)
 {
     size_t totalHeapSize = getNewHeapSize(size);
     t_heapHeader *newHeap = mmap(NULL, totalHeapSize, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-
     if (newHeap == MAP_FAILED)
         return NULL;
+    ft_printf("Malloced %p -  %p\n", (void*)newHeap, (void*)((char*)newHeap + totalHeapSize));
     initHeaders(size, newHeap, totalHeapSize);
     return HEAP_TO_BLOCK(newHeap);
 }
@@ -44,7 +44,8 @@ void *malloc(size_t size)
 
     if (size <= 0)
         return NULL;
-    if(block = findBlock(size))
+    block = findBlock(size);
+    if(block)
     {
         splitBlock(block, size);
         return BLOCK_TO_DATA(block);

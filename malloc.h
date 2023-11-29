@@ -1,8 +1,7 @@
 #include <stddef.h>
-#include <stdlib.h>
 #include <sys/mman.h>
 #include <unistd.h>
-#include <stdio.h>
+#include "./ft_printf.h"
 
 #define TINY_HEAP_SIZE (getpagesize() * 4)
 #define MIDDLE_HEAP_SIZE (getpagesize() * 16)
@@ -22,7 +21,7 @@ typedef enum group{
 typedef struct s_block{
     struct s_block *next;
     int isFree;
-    int size;
+    size_t size;
 } t_block;
 
 typedef struct s_heapHeader{
@@ -36,14 +35,13 @@ typedef struct s_heapHeader{
 
 extern t_heapHeader *g_heapHead;
 
-
 //block.c
 void splitBlock(t_block *block, size_t size);
 void createNewBlock(size_t size, t_heapHeader *newHeap, t_group group, size_t totalHeapSize);
 t_block *findBlock(size_t size);
 
 //heap_header.c
-void *createNewHeapHeader(t_heapHeader *newHeap, t_group group, size_t totalHeapSize);
+void createNewHeapHeader(t_heapHeader *newHeap, t_group group, size_t totalHeapSize);
 t_heapHeader *getLastHeader(t_heapHeader *header);
 
 //malloc.c
