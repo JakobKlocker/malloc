@@ -18,17 +18,71 @@ int isValidPtr(void *ptr)
     return 0;
 }
 
+void mergeRightBlock(void *ptr)
+{
+    t_block *block = DATA_TO_BLOCK(ptr);
+    t_block *nextBlock = block->next;
+
+    if(nextBlock && nextBlock->isFree)
+    {
+        if(nextBlock->next)
+            nextBlock->next->prev = block;
+        block->next = nextBlock->next;
+        block->size += sizeof(t_block) + nextBlock->size;
+    }
+}
+
+void mergeLeftBlock(void *ptr)
+{
+    t_block *block = DATA_TO_BLOCK(ptr);
+    t_block *prevBlock = block->prev;
+
+    if(prevBlock && prevBlock->isFree)
+    {
+        if(block->next)
+            block->next->prev = prevBlock;
+        prevBlock->next = block->next; 
+        prevBlock->size += block->size + sizeof(t_block);
+    }
+}
+
+t_heapHeader *getHeapHeaderFromBlock(t_block *block)
+{
+    while(block->prev)
+    {
+        block = block->prev;
+    }
+    return BLOCK_TO_HEAP(block);
+}
+
+void removeHeapIfEmpty(t_heapHeader *heap)
+{
+    t_block *block = heap->blocks;
+    while(block)
+    {
+        if(!block->isFree)
+            return;
+        block = block->next;
+    }
+    // Everything is free
+    if(heap->prev)
+    {
+        heap->prev->next = heap->next;
+        if(heap->next)
+            heap->next->prev = heap->prev;
+    }
+    munmap(heap, heap->totalSize);
+}
+
 void free(void *ptr)
 {
     if(!ptr || !isValidPtr(ptr))
         return;
+
     t_block *block = DATA_TO_BLOCK(ptr);
+    t_heapHeader *heap = getHeapHeaderFromBlock(block); 
     block->isFree = 1;
-
-    while(block->prev && block->prev->isFree)
-    {
-        block = block->prev;
-    }
-    //got most left block which is free, all right next to it which are free can merge
-
+    mergeRightBlock(ptr);
+    mergeLeftBlock(ptr);
+    removeHeapIfEmpty(heap);
 }

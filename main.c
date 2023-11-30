@@ -4,14 +4,11 @@ t_heapHeader *g_heapHead;
 
 int main()
 {
-    void *allocatedMemory1 = malloc(15);
-    for(int i = 0; i < 500; i++)
-    {
-        malloc(15);
-    }
-    malloc(155);
-    malloc(1555);
-    malloc(155555);
+    void* test = malloc(15);
+    void* test1 = malloc(15);
+    void* test2 = malloc(15);
+    show_alloc_mem();
+    free(test1);
     show_alloc_mem();
     return 0;
 }

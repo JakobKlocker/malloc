@@ -9,7 +9,7 @@
 #define MIDDLE_BLOCK_SIZE (MIDDLE_HEAP_SIZE / 128)
 
 #define HEAP_TO_BLOCK(heap) ((void*) heap + sizeof(t_heapHeader))
-// #define BLOCK_TO_HEAP(block) ((void*) heap - sizeof(t_block))
+#define BLOCK_TO_HEAP(block) ((void*) block - sizeof(t_heapHeader))
 #define BLOCK_TO_DATA(block) ((void*) block + sizeof(t_block))
 #define DATA_TO_BLOCK(data) ((void*) data - sizeof(t_block))
 
@@ -52,6 +52,14 @@ int getNewHeapSize(size_t size);
 void initHeaders(size_t size, t_heapHeader *newHeap, size_t totalHeapSize);
 void *createNewHeap(size_t size);
 void *malloc(size_t size);
+
+// free.x
+int isValidPtr(void *ptr);
+void mergeRightBlock(void *ptr);
+void mergeLeftBlock(void *ptr);
+t_heapHeader *getHeapHeaderFromBlock(t_block *block);
+void removeHeapIfEmpty(t_heapHeader *heap);
+void free(void *ptr);
 
 //show_alloc.c
 void show_alloc_mem();

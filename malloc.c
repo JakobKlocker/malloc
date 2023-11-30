@@ -32,7 +32,7 @@ void *createNewHeap(size_t size)
     t_heapHeader *newHeap = mmap(NULL, totalHeapSize, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     if (newHeap == MAP_FAILED)
         return NULL;
-    ft_printf("Malloced %p -  %p\n", (void*)newHeap, (void*)((char*)newHeap + totalHeapSize));
+    ft_printf("Malloced %p -  %p\n", (void *)newHeap, (void *)((char *)newHeap + totalHeapSize));
     initHeaders(size, newHeap, totalHeapSize);
     return HEAP_TO_BLOCK(newHeap);
 }
@@ -45,7 +45,7 @@ void *malloc(size_t size)
     if (size <= 0)
         return NULL;
     block = findBlock(size);
-    if(block)
+    if (block)
     {
         splitBlock(block, size);
         return BLOCK_TO_DATA(block);
