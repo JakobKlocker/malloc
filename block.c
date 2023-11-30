@@ -36,7 +36,7 @@ void createNewBlock(size_t size, t_heapHeader *newHeap, t_group group, size_t to
         firstBlock->next = NULL;
 }
 
-t_block *findBlock(size_t size)
+t_block *findBlock(size_t size, int *perfectFit)
 {
     t_heapHeader *currentHeap = g_heapHead;
     t_group group = getGroupBySize(size);
@@ -50,6 +50,11 @@ t_block *findBlock(size_t size)
             {
                 if(currentBlock->isFree && currentBlock->size >= size + sizeof(t_block))
                 {
+                    return currentBlock;
+                }
+                if(currentBlock->isFree && currentBlock->size == size)
+                {
+                    *perfectFit = 1;
                     return currentBlock;
                 }
                 currentBlock = currentBlock->next;

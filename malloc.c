@@ -41,10 +41,16 @@ void *malloc(size_t size)
 {
     void *ret;
     t_block *block;
+    int perfectFit = 0;
 
     if (size <= 0)
         return NULL;
-    block = findBlock(size);
+    block = findBlock(size, &perfectFit);
+    if(perfectFit)
+    {
+        block->isFree = 0;
+        return BLOCK_TO_DATA(block);
+    }
     if (block)
     {
         splitBlock(block, size);

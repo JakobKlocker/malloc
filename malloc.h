@@ -40,7 +40,7 @@ extern t_heapHeader *g_heapHead;
 //block.c
 void splitBlock(t_block *block, size_t size);
 void createNewBlock(size_t size, t_heapHeader *newHeap, t_group group, size_t totalHeapSize);
-t_block *findBlock(size_t size);
+t_block *findBlock(size_t size, int *perfectFit);
 
 //heap_header.c
 void createNewHeapHeader(t_heapHeader *newHeap, t_group group, size_t totalHeapSize);
