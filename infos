@@ -1,0 +1,5 @@
+Malloc testing :
+LD_PRELOAD=/home/projects/42/malloc/libft_malloc.so ls
+
+
+ls works, vim crashes -> bugs?

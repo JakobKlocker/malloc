@@ -37,6 +37,10 @@ typedef struct s_heapHeader{
 
 extern t_heapHeader *g_heapHead;
 
+//realloc.c
+size_t getSizeFromBlock(void *ptr);
+void *realloc(void *ptr, size_t size);
+
 //block.c
 void splitBlock(t_block *block, size_t size);
 void createNewBlock(size_t size, t_heapHeader *newHeap, t_group group, size_t totalHeapSize);
@@ -63,3 +67,4 @@ void free(void *ptr);
 
 //show_alloc.c
 void show_alloc_mem();
+

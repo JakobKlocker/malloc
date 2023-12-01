@@ -1,26 +1,23 @@
 ifeq ($(HOSTTYPE),)
-	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+    HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
 NAME = libft_malloc_$(HOSTTYPE).so
 LIBRARY_NAME = libft_malloc.so
 
 LIBFTPRINTF = libftprintf.a
-LIBFTPRINTF_PATH = ./
+LIBFTPRINTF_PATH = ./  # Adjust this path if necessary
 
 FLAGS = -Wall -Wextra -Werror
 FLAGS_LIBRARY = -shared
 
-
-
-SRC = block.c free.c heap_header.c malloc.c show_alloc.c utils.c
+SRC = block.c free.c heap_header.c malloc.c show_alloc.c utils.c realloc.c
 OBJ = $(SRC:.c=.o)
-
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc $(FLAGS) $(FLAGS_LIBRARY) -L$(LIBFTPRINTF_PATH) -lftprintf -o $(NAME) $(OBJ) 
+	gcc $(FLAGS) $(FLAGS_LIBRARY) -L$(LIBFTPRINTF_PATH) -lftprintf -o $(NAME) $(OBJ)
 	ln -s $(NAME) $(LIBRARY_NAME)
 
 %.o: %.c

@@ -80,11 +80,12 @@ void free(void *ptr)
 {
     if(!ptr || !isValidPtr(ptr))
         return;
-
+    write(1, "Own Freee Called\n", 18);
     t_block *block = DATA_TO_BLOCK(ptr);
     t_heapHeader *heap = getHeapHeaderFromBlock(block); 
     block->isFree = 1;
     mergeRightBlock(ptr);
     mergeLeftBlock(ptr);
     removeHeapIfEmpty(heap);
+    write(1, "Return from Free\n", 18);
 }
