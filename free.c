@@ -68,9 +68,11 @@ void removeHeapIfEmpty(t_heapHeader *heap)
     if(heap->prev)
     {
         heap->prev->next = heap->next;
-        if(heap->next)
-            heap->next->prev = heap->prev;
     }
+    if(heap->next)
+        heap->next->prev = heap->prev;
+    if(!heap->prev)
+        g_heapHead = heap->next;
     munmap(heap, heap->totalSize);
 }
 

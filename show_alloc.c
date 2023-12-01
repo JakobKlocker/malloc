@@ -3,10 +3,8 @@
 void show_alloc_mem()
 {
     t_heapHeader *currentHeap = g_heapHead;
-
     ft_printf("heapHeader size: %li\n", sizeof(t_heapHeader));
     ft_printf("block size: %li\n", sizeof(t_block));
-
     while (currentHeap)
     {
         if (currentHeap->group == TINY)

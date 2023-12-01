@@ -1,5 +1,7 @@
 #include "./malloc.h"
 
+t_heapHeader *g_heapHead;
+
 int getGroupBySize(size_t size)
 {
     if (size <= (size_t)TINY_BLOCK_SIZE)
