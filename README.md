@@ -1,6 +1,6 @@
-# 42 Malloc
+# Malloc
 
-42 Malloc is a custom memory allocator project created as part of the 42 coding school curriculum. This project implements a basic memory allocator with functionalities similar to `malloc` and `free` in C. It is designed to manage memory allocation and deallocation while maintaining efficient memory usage.
+Malloc is a custom memory allocator project created as part of the 42 coding school curriculum. This project implements a basic memory allocator with functionalities similar to `malloc` and `free` in C. It is designed to manage memory allocation and deallocation while maintaining efficient memory usage.
 
 ## Project Description
 
