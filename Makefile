@@ -6,7 +6,7 @@ NAME = libft_malloc_$(HOSTTYPE).so
 LIBRARY_NAME = libft_malloc.so
 
 LIBFTPRINTF = libftprintf.a
-LIBFTPRINTF_PATH = ./  # Adjust this path if necessary
+LIBFTPRINTF_PATH = ./
 
 FLAGS = -Wall -Wextra -Werror
 FLAGS_LIBRARY = -shared
